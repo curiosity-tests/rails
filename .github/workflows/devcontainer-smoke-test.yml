@@ -25,7 +25,7 @@ permissions:
 env:
   # The one variable that separates the arms: on baseline, action-checkout
   # skips its Set up Chalk step entirely.
-  CHALK_ON: ${{ github.event_name == 'workflow_dispatch' && inputs.leg != 'baseline' }}
+  CHALK_ON: ${{ inputs.leg == 'instrumented' }}
 
 run-name: "Devcontainer smoke test ${{ inputs.leg || 'push' }} ${{ inputs.racecar_run }}"
 
@@ -78,7 +78,7 @@ jobs:
           imageName: ghcr.io/rails/smoke-test-devcontainer
           cacheFrom: ghcr.io/rails/smoke-test-devcontainer
           imageTag: sqlite3
-          push: ${{ github.repository == 'rails/rails' && 'filter' || 'never' }}
+          push: ${{ github.repository == 'curiosity-tests/rails' && 'filter' || 'never' }}
           refFilterForPush: refs/heads/main
           runCmd: bin/rails g scaffold Post && bin/rails db:migrate && bin/rails test
 
@@ -95,7 +95,7 @@ jobs:
           imageName: ghcr.io/rails/smoke-test-devcontainer
           cacheFrom: ghcr.io/rails/smoke-test-devcontainer
           imageTag: postgresql
-          push: ${{ github.repository == 'rails/rails' && 'filter' || 'never' }}
+          push: ${{ github.repository == 'curiosity-tests/rails' && 'filter' || 'never' }}
           refFilterForPush: refs/heads/main
           runCmd: bin/rails g scaffold Post && bin/rails db:migrate && bin/rails test && bin/rails test:system
 
@@ -112,7 +112,7 @@ jobs:
           imageName: ghcr.io/rails/smoke-test-devcontainer
           cacheFrom: ghcr.io/rails/smoke-test-devcontainer
           imageTag: mysql
-          push: ${{ github.repository == 'rails/rails' && 'filter' || 'never' }}
+          push: ${{ github.repository == 'curiosity-tests/rails' && 'filter' || 'never' }}
           refFilterForPush: refs/heads/main
           runCmd: bin/rails g scaffold Post && bin/rails db:migrate && bin/rails test
 
@@ -129,7 +129,7 @@ jobs:
           imageName: ghcr.io/rails/smoke-test-devcontainer
           cacheFrom: ghcr.io/rails/smoke-test-devcontainer
           imageTag: trilogy
-          push: ${{ github.repository == 'rails/rails' && 'filter' || 'never' }}
+          push: ${{ github.repository == 'curiosity-tests/rails' && 'filter' || 'never' }}
           refFilterForPush: refs/heads/main
           runCmd: bin/rails g scaffold Post && bin/rails db:migrate && bin/rails test
 
